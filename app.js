@@ -6,6 +6,7 @@ express.get("/", (req, res) => {
     Output: "Hello World"
   });
 });
+
 express.listen(PORT, HOST, err => {
   if (err) console.log(err);
   else console.log("Server is running");
