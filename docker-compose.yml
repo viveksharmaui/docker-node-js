@@ -1,0 +1,21 @@
+# This file is responsible for maintaining services in docker for load balancing of different number of containers
+
+version: "3" #Using version 3 of docker compose for services
+services:
+  web: # This is our service name
+    # replace username/repo:tag with your name and image details
+    image: sharmavivek62/backend:latest # our image path
+    deploy: # Deploy Image 
+      replicas: 5 # Use 5 instances of image for load balancing
+      resources: # What resources does these instances uses
+        limits: # Limit resources to instances
+          cpus: "0.2" #20% of the cpu is used for one instance total 100% cpu usage for 5 instance
+          memory: 50M #50M of memory is used for one instance
+      restart_policy: #Restart instance on failure
+        condition: on-failure
+    ports: # Listen on port 4000
+      - "4000:8080"
+    networks:  # Use Network webnet which is overlay network for providing abstraction
+      - webnet
+networks:
+  webnet:
