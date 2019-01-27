@@ -17,5 +17,16 @@ services:
       - "4000:8080"
     networks:  # Use Network webnet which is overlay network for providing abstraction
       - webnet
+  visualizer: # This is our other serivce name
+    image: dockersamples/visualizer:stable #service image path
+    ports:
+      - "5000:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement: # Service will run on swarm manager
+        constraints: [node.role == manager]
+    networks: # This show that visualizer is worker of webnet
+      - webnet
 networks:
   webnet:
