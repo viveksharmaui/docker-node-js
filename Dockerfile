@@ -6,17 +6,12 @@ FROM node:9
 # Set the working directory to .
 WORKDIR .
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json .
-
-# Install any needed packages
-RUN npm install
 
 # Bundle app source
 COPY . .
 
+# Install any needed packages
+RUN npm install
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
