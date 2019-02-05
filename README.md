@@ -1,4 +1,4 @@
-# Docker for Node JS Hello World Server 
+# Docker for Node JS Peer 2 Peer Video Calling Server 
 
 ## Documentation 
 - app.js file is main server file.  
