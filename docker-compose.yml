@@ -13,14 +13,14 @@ services:
           memory: 50M #50M of memory is used for one instance
       restart_policy: #Restart instance on failure
         condition: on-failure
-    ports: # Listen on port 4000
-      - "4000:8080"
+    ports: # Listen on port heroku
+      - "${PORT}:8080"
     networks:  # Use Network webnet which is overlay network for providing abstraction
       - webnet
   visualizer: # This is our other serivce name
     image: dockersamples/visualizer:stable #service image path
     ports:
-      - "5000:8080"
+      - "${PORT}:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
