@@ -14,13 +14,13 @@ services:
       restart_policy: #Restart instance on failure
         condition: on-failure
     ports: # Listen on port heroku
-      - "${PORT}:8080"
+      - "3000:8080"
     networks:  # Use Network webnet which is overlay network for providing abstraction
       - webnet
   visualizer: # This is our other serivce name
     image: dockersamples/visualizer:stable #service image path
     ports:
-      - "${PORT}:8080"
+      - "5000:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:

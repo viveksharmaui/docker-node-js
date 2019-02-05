@@ -10,6 +10,10 @@
   "author": "vivek",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "body-parser": "^1.18.2",
+    "easyrtc": "^1.1.0",
+    "serve-static": "^1.13.2",
+    "socket.io": "^2.1.0"
   }
 }
