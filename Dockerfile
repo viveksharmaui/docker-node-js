@@ -9,13 +9,13 @@ WORKDIR .
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
-COPY package*.json .
+COPY package*.json ./
 
 # Install any needed packages
 RUN npm install
 
 # Bundle app source
-COPY . .
+COPY . ./
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
