@@ -22,6 +22,15 @@ services:
   mongo: # This is our other serivce name used for mongodb
     
     image: mongo #service image path
+    deploy: # Deploy Image 
+      replicas: 2 # Use 2 instances of image for load balancing
+      resources: # What resources does these instances uses
+        limits: # Limit resources to instances
+          cpus: "0.2" #20% of the cpu is used for one instance total 100% cpu usage for 5 instance
+          memory: 50M #50M of memory is used for one instance
+      restart_policy: #Restart instance on failure
+        condition: on-failure
+      
     ports: # mongodb port
       - "27017:27017"
     volumes: # mongodb data volume storage
