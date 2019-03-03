@@ -4,6 +4,7 @@ var express = require("express"); // web framework external module
 var serveStatic = require("serve-static"); // serve static files
 var socketIo = require("socket.io"); // web socket external module
 var easyrtc = require("easyrtc"); // EasyRTC external module
+const mongoose = require("mongoose");
 const path = require("path");
 
 // Set process name
@@ -13,6 +14,11 @@ process.title = "node-easyrtc";
 var app = express();
 
 app.use(express.static(path.resolve(__dirname, "./build")));
+
+mongoose.connect("mongodb://mongo:27017", err => {
+  if (err) console.log("db is not connected");
+  else console.log("db is connected");
+});
 
 // Start Express http server on port 8080
 var webServer = http.createServer(app);
@@ -103,6 +109,6 @@ app.get("*", function(request, response) {
 });
 
 //listen on port 8080
-webServer.listen(process.env.PORT || 8080, function() {
+webServer.listen(8080, function() {
   console.log("listening on http://localhost:8080");
 });

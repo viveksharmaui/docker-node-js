@@ -1,11 +1,13 @@
 # This file is responsible for maintaining services in docker for load balancing of different number of containers
-
 version: "3" #Using version 3 of docker compose for services
 services:
-  web: # This is our service name
-    # replace username/repo:tag with your name and image details
+  nodejs: # This is our service name
+   #replace username/repo:tag with your name and image details
+    
     image: sharmavivek62/backend:latest # our image path
     deploy: # Deploy Image 
+      placement: # Service will run on swarm manager
+        constraints: [node.role == manager]
       replicas: 2 # Use 2 instances of image for load balancing
       resources: # What resources does these instances uses
         limits: # Limit resources to instances
@@ -13,20 +15,14 @@ services:
           memory: 50M #50M of memory is used for one instance
       restart_policy: #Restart instance on failure
         condition: on-failure
-    ports: # Listen on port heroku
+    ports: # node js Listen on port
       - "3000:8080"
-    networks:  # Use Network webnet which is overlay network for providing abstraction
-      - webnet
-  visualizer: # This is our other serivce name
-    image: dockersamples/visualizer:stable #service image path
-    ports:
-      - "5000:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement: # Service will run on swarm manager
-        constraints: [node.role == manager]
-    networks: # This show that visualizer is worker of webnet
-      - webnet
-networks:
-  webnet:
+    depends_on:
+      - mongo
+  mongo: # This is our other serivce name used for mongodb
+    
+    image: mongo #service image path
+    ports: # mongodb port
+      - "27017:27017"
+    volumes: # mongodb data volume storage
+      - "./data:/data/db"

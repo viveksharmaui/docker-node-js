@@ -3,8 +3,8 @@
 # Official Node JS runtime as a parent image
 FROM node:9
 
-# Set the working directory to .
-WORKDIR .
+# Set the working directory to /app
+WORKDIR /app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -15,8 +15,7 @@ COPY package*.json .
 RUN npm install
 
 # Bundle app source
-COPY . .
-
+COPY . /app
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
